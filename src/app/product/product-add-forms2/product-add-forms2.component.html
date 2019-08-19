@@ -1,0 +1,57 @@
+<h3>Yeni Ürün Ekle - Reactive</h3>
+<form [formGroup]="productAddForm" (ngSubmit)="add()">
+    <div class="form-group">
+        <!--createProductAddFormda bağlayacağımız yer formControlName="name"  -->
+        <input type="text" id="name" name="name" placeholder="Ürün Adı" formControlName="name" class="form-control" />
+        <div class="alert alert-danger"
+            *ngIf="productAddForm.get('name').hasError('required') && productAddForm.get('name').dirty">
+            <!-- productAddForm.get('name') required hatası varsa ve boş bırakılırsa -->
+            Ürün Adı Zorunludur.
+        </div>
+    </div>
+    <div class="form-group">
+        <!--createProductAddFormda bağlayacağımız yer formControlName="name"  -->
+        <input type="text" id="description" name="description" placeholder="Ürün Açıklaması"
+            formControlName="description" class="form-control" />
+        <div class="alert alert-danger"
+            *ngIf="productAddForm.get('description').hasError('required') && productAddForm.get('description').dirty">
+            <!-- productAddForm.get('description') required hatası varsa ve boş bırakılırsa -->
+            Ürün Açıklaması Zorunludur.
+        </div>
+    </div>
+    <div class="form-group">
+        <!--createProductAddFormda bağlayacağımız yer formControlName="name"  -->
+        <input type="text" id="price" name="price" placeholder="Ürün Fiyatı" formControlName="price"
+            class="form-control" />
+        <div class="alert alert-danger"
+            *ngIf="productAddForm.get('price').hasError('required') && productAddForm.get('price').dirty">
+            <!-- productAddForm.get('price') required hatası varsa ve boş bırakılırsa -->
+            Ürün Fiyatı Zorunludur.
+        </div>
+    </div>
+    <div class="form-group">
+        <!--createProductAddFormda bağlayacağımız yer formControlName="name"  -->
+        <input type="text" id="imageUrl" name="imageUrl" placeholder="Ürün Resmi" formControlName="imageUrl"
+            class="form-control" />
+        <div class="alert alert-danger"
+            *ngIf="productAddForm.get('imageUrl').hasError('required') && productAddForm.get('imageUrl').dirty">
+            <!-- productAddForm.get('imageUrl') required hatası varsa ve boş bırakılırsa -->
+            Ürün Resmi Zorunludur.
+        </div>
+    </div>
+
+    <div class="form-group">
+        <select class="form-control" formControlName="categoryId" required id="categoryId"
+            name="categoryId">
+            <option *ngFor="let category of categories" [value]="category.id">
+                {{category.name}}
+            </option>
+        </select>
+        <div *ngIf="productAddForm.get('categoryId').hasError('required') && productAddForm.get('categoryId').touched" class="alert alert-danger">
+                <!-- productAddForm.get('categoryId') required hatası varsa ve boş bırakılırsa -->
+            Ürün Kategorisi Gereklidir
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary" [disabled]="productAddForm.invalid">Ürün Ekle
+    </button>
+</form>

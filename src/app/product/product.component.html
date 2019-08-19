@@ -1,0 +1,35 @@
+ <!-- <h3 *ngIf="products; else noProduct">{{title}}</h3> /***ürün varsa listele yoksa noProduct a git -->
+
+ <app-category></app-category>
+ <div class="form-group">
+        <input 
+        class="form-control" 
+        id="productName"  
+        placeholder="Aradığınız Ürün"
+        [(ngModel)]="filterText" 
+        /><!-- [(ngModel)]="filterText" bu inputu filterText'e bağla -->
+        
+        <small *ngIf="filterText"
+        class="form-text text-muted"> <!--*ngIf="filterText" varsa göster-->
+         Aradığınız ürün <strong>'{{filterText}}'</strong>
+    </small>
+      </div>
+<div class="row">
+    <ng-template #noProduct> <!--Ürün yoksa-->
+        <div class="alert alert-primary" role="alert">
+            Bu kategoride ürün yok.
+        </div>
+    </ng-template>
+        <!--Ürünleri listeleme ve filtrelemeyi ngFor ile gösterip json dosyasının içinde gezdiriyoruz-->
+        <!-- | productFilter:filterText ile searc pipesini görmesini sağladık-->
+    <div *ngFor="let product of products | productFilter:filterText" class="productbox" style="width: 18rem;">
+        <img [src]="product.imageUrl" class="card-img-top image-url" alt="...">
+        <div class="card-body">
+            <h3 class="card-title">{{product.name | uppercase}}</h3>
+            <p class="card-text">{{product.description}}</p>
+            <h5> {{product.price | currency:'USD': 'symbol':"1.2-2"}}</h5>
+             <a (click)="addToCart(product)" class="btn btn-primary">Sepete Ekle</a>
+             <!-- click olayı olduğunda ürünü addToCarta yolluyoruz -->
+        </div>
+    </div>
+</div>
